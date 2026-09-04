@@ -1,0 +1,31 @@
+{
+  "name": "kafka-node-modules",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "init:topic": "tsx shared/admin.ts",
+    "start:order": "tsx order-service/server.ts",
+    "start:notification": "tsx notification-service/worker.ts",
+    "dev:order": "tsx watch order-service/server.ts",
+    "dev:notification": "tsx watch notification-service/worker.ts",
+    "format": "prettier --write \"**/*.ts\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "kafkajs": "^2.2.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.4.1",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
+}
