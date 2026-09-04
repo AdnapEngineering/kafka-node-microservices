@@ -5,7 +5,7 @@ This project demonstrates an event-driven microservices architecture using Node.
 ## Architecture
 
 *   **Order Service**: An Express REST API that accepts new orders and publishes `order-created` events to Kafka.
-*   **Notification Service**: A worker process that consumes `order-created` events from Kafka and processes them.
+*   **Notification Service**: A worker process that uses a Kafka consumer (`notification-service-group`) to subscribe to the `order-created` topic, reading messages from the beginning to log and process new orders.
 *   **Shared**: Common configuration for the Kafka client and an admin script for topic initialization.
 
 ## Prerequisites
