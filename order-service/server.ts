@@ -5,9 +5,14 @@ import 'dotenv/config';
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.ORDER_SERVICE_PORT;
+const PORT = process.env.ORDER_SERVICE_PORT || 3000;
 
 const producer = kafka.producer();
+
+// Liveness probe for the Docker Compose healthcheck and CI smoke test
+app.get('/health', (_req: Request, res: Response) => {
+  res.json({ status: 'ok' });
+});
 
 app.post('/orders', async (req: Request, res: Response) => {
   const { customerId, items, total } = req.body;
@@ -51,10 +56,12 @@ async function start() {
   }
 }
 
-// Graceful shutdown
-process.on('SIGINT', async () => {
+// Graceful shutdown: SIGINT from Ctrl+C, SIGTERM from `docker compose down`
+async function shutdown() {
   await producer.disconnect();
   process.exit(0);
-});
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
 start();
