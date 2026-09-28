@@ -39,10 +39,13 @@ async function start() {
 }
 
 // Graceful shutdown
-process.on('SIGINT', async () => {
+// SIGINT from Ctrl+C, SIGTERM from `docker compose down`
+async function shutdown() {
   console.log('Disconnecting consumer...');
   await consumer.disconnect();
   process.exit(0);
-});
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
 start();

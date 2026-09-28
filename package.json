@@ -10,7 +10,9 @@
     "start:notification": "tsx notification-service/worker.ts",
     "dev:order": "tsx watch order-service/server.ts",
     "dev:notification": "tsx watch notification-service/worker.ts",
-    "format": "prettier --write \"**/*.ts\""
+    "format": "prettier --write \"**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "format:check": "prettier --check \"**/*.ts\""
   },
   "keywords": [],
   "author": "",

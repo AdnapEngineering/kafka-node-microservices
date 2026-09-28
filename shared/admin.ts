@@ -21,6 +21,7 @@ async function init() {
     console.log('Topic created successfully');
   } catch (error) {
     console.error('Error creating topic: ', error);
+    process.exitCode = 1; // lets docker compose hold the services back
   } finally {
     await admin.disconnect();
   } //close the network socket to the broker
